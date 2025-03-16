@@ -14,7 +14,7 @@ To report a new vulnerability, open a pull request using the template below.
 
 1. Create a file named `ZIGSEC-0000-0000.zon` in the `packages/<fingerprint>` subdirectory of the repository. The fingerprint for a package can be found in its `build.zig.zon`. Please specify the fingerprint without `0x`, e.g. if the fingerprint is `0x1a06b10ba57a349a`, the advisory is placed in `packages/1a06b10ba57a349a/`.
 2. Copy and paste the [ZON advisory template](./EXAMPLE_ADVISORY.zon) into the created file. Delete the comments and fill it out with details about the vulnerability. Make sure to describe the vulnerability in detail.
-3. Open a pull request. After being reviewed your advisory will be assigned a unique identifier `ZIGSEC-YYYY-NNNN` and be published to the database.
+3. Open a [pull request](https://github.com/Zig-Sec/advisory-db/pulls). After being reviewed your advisory will be assigned a unique identifier `ZIGSEC-YYYY-NNNN` and be published to the database.
 
 > The created `.zon` file can be validated using the validate application. It can be build using `zig build`.
 
@@ -149,3 +149,9 @@ Advisories are defined using the Zig Object Notation (ZON).
 _Q: Do I need to be the owner of a package to file an advisory?_
 
 A: No, anyone can file an advisory against a package. Make sure the package has a certain reach and describe the vulnerability in detail. We must be able to validate the vulnerability in order to merge it.
+
+## License
+
+All content in this repository is published in the public domain, except otherwise specified.
+
+Advisories published under a different domain contain a license field specifying the license.
