@@ -1,45 +1,3 @@
-# Zig-Sec Advisory Database
-
-The Zig-Sec Advisory Database is a repository of security-advisories filed against Zig packages.
-
-The following tools make use of the given database and can be used to audit Zig packages:
-
-- `zat`: The Zig Audit Tool (not released yet)
-
-## Reporting Vulnerabilities
-
-To report a new vulnerability, open a pull request using the template below. 
-
-### Steps
-
-1. Create a file named `ZIGSEC-0000-0000.zon` in the `packages/<fingerprint>` subdirectory of the repository. The fingerprint for a package can be found in its `build.zig.zon`. Please specify the fingerprint without `0x`, e.g. if the fingerprint is `0x1a06b10ba57a349a`, the advisory is placed in `packages/1a06b10ba57a349a/`.
-2. Copy and paste the [ZON advisory template](./EXAMPLE_ADVISORY.zon) into the created file. Delete the comments and fill it out with details about the vulnerability. Make sure to describe the vulnerability in detail.
-3. Open a pull request. After being reviewed your advisory will be assigned a unique identifier `ZIGSEC-YYYY-NNNN` and be published to the database.
-
-> The created `.zon` file can be validated using the validate application. It can be build using `zig build`.
-
-### Criteria
-
-The following vulnerabilities qualify for an advisory:
-
-- Code Execution
-- Memory Corruption
-- Privilege Escalation
-- File Disclosure or Directory Traversal
-- Web Security (XSS, CSRF, etc.)
-- Format Injection (SQL Injection, etc.)
-- Cryptography Failure (confidentiality breakage, integrity breakage, authenticity breakage, key leakage)
-- Covert Channels (Specter, Meltdown, etc.)
-- Denial of Service (especially if used in a web context)
-
-In addition to the qualifiers stated above, the package should have a certain user base, i.e. the
-vulnerability actually impacts other packages and users.
-
-## Advisory Format
-
-Advisories are defined using the Zig Object Notation (ZON).
-
-```zon
 .{
     // Identifier for the advisory (mandatory) in the format ZIGSEC-YYYY-NNNN,
     // e.g. ZIGSEC-2025-0001 for the first published advisory in the year 2025.
@@ -85,6 +43,7 @@ Advisories are defined using the Zig Object Notation (ZON).
     //},
     
     // Optional: Indicates the type of informational security advisory 
+    // - `unsound` for soundness issues
     // - `unmaintained` for packages that are no longer maintained
     // - `notice` for other informational notices
     .informational = .unmaintained,
@@ -142,10 +101,3 @@ Advisories are defined using the Zig Object Notation (ZON).
     // Recommendations (optional but recommended).
     .recommended = "You should do XYZ",
 }
-```
-
-## FAQ
-
-_Q: Do I need to be the owner of a package to file an advisory?_
-
-A: No, anyone can file an advisory against a package. Make sure the package has a certain reach and describe the vulnerability in detail. We must be able to validate the vulnerability in order to merge it.
