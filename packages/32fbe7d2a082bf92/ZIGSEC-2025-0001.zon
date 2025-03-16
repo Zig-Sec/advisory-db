@@ -1,5 +1,5 @@
 .{
-    .id = "ZIGSEC-0000-0000", 
+    .id = "ZIGSEC-2025-0001", 
     .package = "zbor",
     .fingerprint = 0x32fbe7d2a082bf92,
     .date = "2025-03-16",
