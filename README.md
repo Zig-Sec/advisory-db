@@ -150,6 +150,10 @@ _Q: Do I need to be the owner of a package to file an advisory?_
 
 A: No, anyone can file an advisory against a package. Make sure the package has a certain reach and describe the vulnerability in detail. We must be able to validate the vulnerability in order to merge it.
 
+_Q: Is this the official way to report vulnerabilities for Zig packages?_
+
+A: There are many ways to report vulnerabilities for software including the [GitHub Advisory Database](https://github.com/advisories) and the [Open Source Vulnerabilities Database](https://osv.dev/). This is just another way inspired by [RustSEC](https://rustsec.org/) and dedicated specifically to Zig packages.
+
 ## License
 
 All content in this repository is published in the public domain, except otherwise specified.
