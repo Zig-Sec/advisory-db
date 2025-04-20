@@ -11,7 +11,7 @@
         "cbor", "memory"
     },
     .versions = .{
-        .patched = .{">= 0.16.0"},
+        .patched = .{">= 0.17.2"},
     },
     .description = "This is the first advisory published to zig-sec/advisory-db.",
     .detail = "This advisory does not describe a real vulnerability.",
