@@ -1,3 +1,5 @@
+const std = @import("std");
+
 id: []const u8,
 package: []const u8,
 fingerprint: u64,
@@ -48,3 +50,22 @@ pub const Versions = struct {
     patched: []const []const u8,
     unaffected: ?[]const []const u8 = null,
 };
+
+pub fn vulnerable(self: *const @This(), v: std.SemanticVersion) bool {
+    // TODO: this is just a very simplistic approach
+    for (self.versions.patched) |v2_| {
+        if (std.mem.containsAtLeast(u8, v2_, 1, ">= ")) {
+            const v2 = std.SemanticVersion.parse(v2_[3..]) catch continue;
+            if (v.major < v2.major) continue;
+            if (v.major == v2.major and v.minor < v2.minor) continue;
+            if (v.major == v2.major and v.minor == v2.minor and v.patch < v2.patch) continue;
+
+            return false;
+        } else {
+            const v2 = std.SemanticVersion.parse(v2_) catch continue;
+            if (v2.major == v.major and v2.minor == v.minor and v2.patch == v.patch) return false;
+        }
+    }
+
+    return true;
+}
