@@ -48,6 +48,25 @@ pub fn deinit(self: *const @This(), allocator: std.mem.Allocator) void {
         for (v) |v2| allocator.free(v2);
         allocator.free(v);
     }
+    if (self.affected) |v| {
+        if (v.arch) |arch| {
+            for (arch) |a| allocator.free(a);
+            allocator.free(arch);
+        }
+        if (v.os) |os| {
+            for (os) |o| allocator.free(o);
+            allocator.free(os);
+        }
+    }
+    for (self.versions.patched) |p| allocator.free(p);
+    allocator.free(self.versions.patched);
+    if (self.versions.unaffected) |u| {
+        for (u) |u_| allocator.free(u_);
+        allocator.free(u);
+    }
+    allocator.free(self.description);
+    allocator.free(self.detail);
+    if (self.recommended) |r| allocator.free(r);
 }
 
 pub const License = struct {
