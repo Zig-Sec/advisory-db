@@ -1,0 +1,31 @@
+---
+.title = "A vulnerability database for the Zig ecosystem",
+.date = @date("1990-01-01T00:00:00"),
+.author = "Sample Author",
+.layout = "index.shtml",
+.draft = false,
+--- 
+
+## Tooling
+
+**Zig Audit Tool (ZAT)** - Not released yet!
+
+Audit `build.zig.zon` files for security vulnerabilities intoduced through dependencies.
+
+```bash
+~/Dev/PassKeeZ$ zat --audit
+Scanning build.zig.zon for vulnerabilities (8 package dependencies)
+
+Package:      zbor
+Version:      0.17.0
+Title:        This is the first advisory published to zig-sec/advisory-db.
+Date:         2025-03-16
+ID:           ZIGSEC-2025-0001
+Solution:     Don't worry! But you should upgrade anyway as a new zbor release is available.
+
+error: 1 vulnerability found!
+```
+
+> Did you write a tool utilizing this database? Tell us about it by opening a Pull Request or Issue!
+
+

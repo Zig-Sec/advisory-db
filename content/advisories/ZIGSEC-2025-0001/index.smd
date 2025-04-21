@@ -1,0 +1,26 @@
+---
+.title = "ZIGSEC-2025-0001",
+.date = @date("2025-04-21T00:00:00"),
+.author = "Zig-Sec",
+.layout = "index.shtml",
+.draft = false,
+--- 
+
+ |       |          |
+ |:------|---------:|
+| **Reported** | 2025-03-16 |
+| **Package** | [zbor](https://github.com/r4gus/zbor) |
+| **Type** | Vulnerability |
+| **Categories** | `memory-corruption`  |
+| **Patched** | `>= 0.17.2`  |
+
+## Description
+This is the first advisory published to zig-sec/advisory-db.
+
+ This advisory does not describe a real vulnerability.
+
+ #### Use Markdown
+ > as you like
+
+## Recommendations
+Don't worry! But you should upgrade anyway as a new zbor release is available.

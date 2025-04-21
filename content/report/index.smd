@@ -1,0 +1,39 @@
+---
+.title = "Reporting Vulnerabilities",
+.date = @date("1990-01-01T00:00:00"),
+.author = "Zig-Sec",
+.layout = "index.shtml",
+.draft = false,
+--- 
+
+To add an advisory to the Zig-Sec database, open a [Pull Request](https://github.com/Zig-Sec/advisory-db/pulls) agains the [Zig-Sec/advisory-db](https://github.com/Zig-Sec/advisory-db) repository.
+
+## Steps
+
+1. Create a file named `ZIGSEC-0000-0000.zon` in the `packages/<fingerprint>` subdirectory of the repository. The fingerprint for a package can be found in its _build.zig.zon_. Please specify the fingerprint without `0x`, e.g. if the fingerprint is `0x1a06b10ba57a349a`, the advisory is placed in `packages/1a06b10ba57a349a/`.
+2. Copy and paste the [ZON advisory template](https://github.com/Zig-Sec/advisory-db/blob/main/EXAMPLE_ADVISORY.zon) into the created file. Delete the comments and fill it out with details about the vulnerability. Make sure to describe the vulnerability in detail.
+3. Open a pull request. After being reviewed your advisory will be assigned a unique identifier `ZIGSEC-YYYY-NNNN` and be published to the database.
+
+## Criteria
+
+The following vulnerabilities qualify for an advisory:
+
+- Code Execution
+- Memory Corruption
+- Privilege Escalation
+- File Disclosure or Directory Traversal
+- Web Security (XSS, CSRF, etc.)
+- Format Injection (SQL Injection, etc.)
+- Cryptography Failure (confidentiality breakage, integrity breakage, authenticity breakage, key leakage)
+- Covert Channels (Specter, Meltdown, etc.)
+- Denial of Service (especially if used in a web context)
+
+## FAQ
+
+**Q: Do I need to be the owner of a package to file an advisory?**
+
+A: No, anyone can file an advisory against a package. Make sure the package has a certain reach and describe the vulnerability in detail. We must be able to validate the vulnerability in order to merge it. It makes sense to **inform the maintainers of a package** before filing an advisory.
+
+**Q: Is this the official way to report vulnerabilities for Zig packages?**
+
+A: There are many ways to report vulnerabilities for software including the GitHub Advisory Database and the Open Source Vulnerabilities Database. This is just another way inspired by [RustSEC](https://rustsec.org/) and dedicated specifically to Zig packages.

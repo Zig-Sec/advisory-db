@@ -1,0 +1,16 @@
+---
+.title = "Advisories",
+.date = @date("2025-04-21T00:00:00"),
+.author = "Zig-Sec",
+.layout = "index.shtml",
+.draft = false,
+--- 
+
+2025-03-16
+
+[ZIGSEC-2025-0001]($link.page('advisories/ZIGSEC-2025-0001'))
+
+This is the first advisory published to zig-sec/advisory-db.
+
+---
+
