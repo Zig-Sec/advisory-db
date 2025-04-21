@@ -1,5 +1,7 @@
 const std = @import("std");
 
+const Advisory = @import("src/Advisory.zig");
+
 pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
@@ -29,6 +31,16 @@ pub fn build(b: *std.Build) !void {
 
     const run_step = b.step("run", "Run the app");
     run_step.dependOn(&run_cmd.step);
+
+    const tool = b.addExecutable(.{
+        .name = "advisory_gen",
+        .root_source_file = b.path("advisory_gen.zig"),
+        .target = b.graph.host,
+    });
+    const tool_step = b.addRunArtifact(tool);
+
+    const tool_run_step = b.step("advisories", "Generate advisory pages.");
+    tool_run_step.dependOn(&tool_step.step);
 }
 
 fn buildAdvisoryModule(

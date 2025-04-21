@@ -20,6 +20,36 @@ description: []const u8,
 detail: []const u8,
 recommended: ?[]const u8 = null,
 
+pub fn deinit(self: *const @This(), allocator: std.mem.Allocator) void {
+    allocator.free(self.id);
+    allocator.free(self.package);
+    allocator.free(self.date);
+    if (self.purl) |v| allocator.free(v);
+    if (self.url) |v| allocator.free(v);
+    if (self.references) |v| {
+        for (v) |v2| allocator.free(v2);
+        allocator.free(v);
+    }
+    if (self.license) |v| {
+        allocator.free(v.id);
+        if (v.ref) |ref| allocator.free(ref);
+    }
+    if (self.categories) |v| allocator.free(v);
+    if (self.cvss) |v| allocator.free(v);
+    if (self.keywords) |v| {
+        for (v) |v2| allocator.free(v2);
+        allocator.free(v);
+    }
+    if (self.aliases) |v| {
+        for (v) |v2| allocator.free(v2);
+        allocator.free(v);
+    }
+    if (self.related) |v| {
+        for (v) |v2| allocator.free(v2);
+        allocator.free(v);
+    }
+}
+
 pub const License = struct {
     id: []const u8,
     ref: ?[]const u8 = null,
@@ -39,6 +69,19 @@ pub const Category = enum {
     memory_corruption,
     memory_exposure,
     privilege_escalation,
+
+    pub fn toString(self: @This()) []const u8 {
+        return switch (self) {
+            .code_execution => "code-execution",
+            .crypto_failure => "crypto-failure",
+            .denial_of_service => "denial-of-service",
+            .file_disclosure => "file-disclosure",
+            .format_injection => "format-injection",
+            .memory_corruption => "memory-corruption",
+            .memory_exposure => "memory-exposure",
+            .privilege_escalation => "privilege-escalation",
+        };
+    }
 };
 
 pub const Affected = struct {
