@@ -4,6 +4,7 @@
     .fingerprint = 0x32fbe7d2a082bf92,
     .date = "2025-03-16",
     .purl = "pkg:github/r4gus/zbor",
+    .url = "https://github.com/r4gus/zbor",
     .categories = .{
         .memory_corruption,
     },
@@ -14,6 +15,11 @@
         .patched = .{">= 0.17.2"},
     },
     .description = "This is the first advisory published to zig-sec/advisory-db.",
-    .detail = "This advisory does not describe a real vulnerability.",
+    .detail = 
+        \\ This advisory does not describe a real vulnerability.
+        \\
+        \\ #### Use Markdown
+        \\ > as you like
+        ,
     .recommended = "Don't worry! But you should upgrade anyway as a new zbor release is available.",
 }
