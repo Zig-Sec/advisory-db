@@ -2,6 +2,8 @@ const std = @import("std");
 const Advisory = @import("src/Advisory.zig");
 
 pub fn main() !void {
+    var allocator = std.heap.page_allocator;
+
     var arena_state = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena_state.deinit();
     const arena = arena_state.allocator();
@@ -31,15 +33,20 @@ pub fn main() !void {
                 var adv = try d.dir.openFile(f.name, .{});
                 defer adv.close();
 
-                const content = try adv.readToEndAlloc(arena, 50_000_000);
-                const s = try arena.dupeZ(u8, content);
+                const content = try adv.readToEndAlloc(allocator, 50_000_000);
+                defer allocator.free(content);
+
+                const s = try allocator.dupeZ(u8, content);
+                defer allocator.free(s);
+
                 const advisory = try std.zon.parse.fromSlice(
                     Advisory,
-                    arena,
+                    allocator,
                     s,
                     null,
                     .{ .ignore_unknown_fields = true },
                 );
+                defer advisory.deinit(allocator);
 
                 alladvisories.makeDir(advisory.id) catch {};
                 var adv_dir = try alladvisories.openDir(advisory.id, .{});
@@ -48,45 +55,32 @@ pub fn main() !void {
                 var adv_file = try adv_dir.createFile("index.smd", .{});
                 defer adv_file.close();
 
-                var categories = std.ArrayList(u8).init(arena);
+                var categories = std.ArrayList(u8).init(allocator);
                 defer categories.deinit();
                 if (advisory.categories) |cats| {
                     for (cats) |cat| {
-                        try categories.append('`');
-                        try categories.appendSlice(cat.toString());
-                        try categories.append('`');
-                        try categories.append(' ');
+                        try categories.writer().print("`{s}` ", .{cat.toString()});
                     }
                 }
 
-                var keywords = std.ArrayList(u8).init(arena);
+                var keywords = std.ArrayList(u8).init(allocator);
                 defer keywords.deinit();
                 if (advisory.keywords) |words| {
                     for (words) |word| {
-                        try keywords.appendSlice("[#");
-                        try keywords.appendSlice(word);
-                        try keywords.appendSlice("]($advisories.");
-                        try keywords.appendSlice(advisory.id);
-                        try keywords.appendSlice(") ");
+                        try keywords.writer().print("`{s}` ", .{word});
                     }
                 }
 
-                var patched = std.ArrayList(u8).init(arena);
+                var patched = std.ArrayList(u8).init(allocator);
                 defer patched.deinit();
                 for (advisory.versions.patched) |p| {
-                    try patched.appendSlice("`");
-                    try patched.appendSlice(p);
-                    try patched.appendSlice("` ");
+                    try patched.writer().print("`{s}` ", .{p});
                 }
 
-                var package = std.ArrayList(u8).init(arena);
+                var package = std.ArrayList(u8).init(allocator);
                 defer package.deinit();
                 if (advisory.url) |url| {
-                    try package.appendSlice("[");
-                    try package.appendSlice(advisory.package);
-                    try package.appendSlice("](");
-                    try package.appendSlice(url);
-                    try package.appendSlice(")");
+                    try package.writer().print("[{s}]({s})", .{ advisory.package, url });
                 } else {
                     try package.appendSlice(advisory.package);
                 }
