@@ -28,4 +28,6 @@ error: 1 vulnerability found!
 
 > Did you write a tool utilizing this database? Tell us about it by opening a Pull Request or Issue!
 
+## About
 
+The [Zig-Sec Advisory Database](https://github.com/Zig-Sec/advisory-db) is a repository of security advisories filed against Zig packages. It is maintained by the [Zig-Sec Orga](https://github.com/Zig-Sec).
