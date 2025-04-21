@@ -11,6 +11,10 @@
     .keywords = .{
         "cbor", "memory"
     },
+    .references = .{
+        "https://github.com/r4gus/zbor/issues/25",
+        "https://github.com/r4gus/zbor/issues/21",
+    },
     .versions = .{
         .patched = .{">= 0.17.2"},
     },

@@ -77,12 +77,26 @@ pub fn main() !void {
                     try patched.writer().print("`{s}` ", .{p});
                 }
 
+                var unaffected = std.ArrayList(u8).init(allocator);
+                defer unaffected.deinit();
+                if (advisory.versions.unaffected) |uaf| {
+                    for (uaf) |p| {
+                        try unaffected.writer().print("`{s}` ", .{p});
+                    }
+                }
+
                 var package = std.ArrayList(u8).init(allocator);
                 defer package.deinit();
                 if (advisory.url) |url| {
                     try package.writer().print("[{s}]({s})", .{ advisory.package, url });
                 } else {
                     try package.appendSlice(advisory.package);
+                }
+
+                var references = std.ArrayList(u8).init(allocator);
+                defer references.deinit();
+                if (advisory.references) |refs| {
+                    for (refs) |ref| try references.writer().print("- [{s}]({s})\n", .{ ref, ref });
                 }
 
                 try adv_file.writer().print(
@@ -94,6 +108,8 @@ pub fn main() !void {
                         if (advisory.informational) |_| "Informational" else "Vulnerability",
                         categories.items,
                         patched.items,
+                        unaffected.items,
+                        references.items,
                         advisory.description,
                         advisory.detail,
                         if (advisory.recommended) |rec| rec else "n.a.",
@@ -139,6 +155,10 @@ const template =
     \\| **Type** | {s} |
     \\| **Categories** | {s} |
     \\| **Patched** | {s} |
+    \\| **Unaffected** | {s} |
+    \\
+    \\ **References**
+    \\ {s}
     \\
     \\## Description
     \\{s}
