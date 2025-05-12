@@ -109,6 +109,7 @@ pub fn main() !void {
                         categories.items,
                         patched.items,
                         unaffected.items,
+                        advisory.fingerprint,
                         references.items,
                         advisory.description,
                         advisory.detail,
@@ -156,6 +157,7 @@ const template =
     \\| **Categories** | {s} |
     \\| **Patched** | {s} |
     \\| **Unaffected** | {s} |
+    \\| **Fingerprint** | {x} |
     \\
     \\ **References**
     \\ {s}

@@ -12,7 +12,7 @@ To report a new vulnerability, open a pull request using the template below.
 
 ### Steps
 
-1. Create a file named `ZIGSEC-0000-0000.zon` in the `packages/<fingerprint>` subdirectory of the repository. The fingerprint for a package can be found in its `build.zig.zon`. Please specify the fingerprint without `0x`, e.g. if the fingerprint is `0x1a06b10ba57a349a`, the advisory is placed in `packages/1a06b10ba57a349a/`.
+1. Create a file named `ZIGSEC-0000-0000.zon` in the `packages/<package_name>` subdirectory of the repository. The name for a package can be found in its `build.zig.zon`. For example if the name is `zbor`, the advisory is placed in `packages/zbor/`.
 2. Copy and paste the [ZON advisory template](./EXAMPLE_ADVISORY.zon) into the created file. Delete the comments and fill it out with details about the vulnerability. Make sure to describe the vulnerability in detail.
 3. Open a [pull request](https://github.com/Zig-Sec/advisory-db/pulls). After being reviewed your advisory will be assigned a unique identifier `ZIGSEC-YYYY-NNNN` and be published to the database.
 
@@ -152,7 +152,7 @@ A: No, anyone can file an advisory against a package. Make sure the package has 
 
 _Q: Is this the official way to report vulnerabilities for Zig packages?_
 
-A: There are many ways to report vulnerabilities for software including the [GitHub Advisory Database](https://github.com/advisories) and the [Open Source Vulnerabilities Database](https://osv.dev/). This is just another way inspired by [RustSEC](https://rustsec.org/) and dedicated specifically to Zig packages.
+A: There are many ways to report vulnerabilities for software including the [GitHub Advisory Database](https://github.com/advisories) and the [Open Source Vulnerabilities Database](https://osv.dev/). This is just another way inspired by [RustSEC](https://rustsec.org/) and dedicated specifically to Zig packages. **Together with ZAT, this is part of a research project on how to increase the security of the Zig ecosystem through transparency**.
 
 ## License
 
