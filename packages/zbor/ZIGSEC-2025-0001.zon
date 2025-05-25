@@ -15,6 +15,11 @@
         "https://github.com/r4gus/zbor/issues/25",
         "https://github.com/r4gus/zbor/issues/21",
     },
+    .affected = .{
+        .functions = .{
+            "zbor.stringify",
+        },
+    },
     .versions = .{
         .patched = .{">= 0.17.2"},
     },

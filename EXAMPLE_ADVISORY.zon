@@ -79,6 +79,12 @@
         // Operating systems impacted by this vulnerability (optional)
         // For a list of operating systems run `zig targets`.
         //.os = .{ "windows" },
+        
+        // A list of functions that are affected referenced by their fully
+        // quallified paths.
+        .functions = .{
+            "mymodule.MyType.vulnerable_function",
+        },
     },
     
     // Versions which include fixes for this vulnerability (mandatory).

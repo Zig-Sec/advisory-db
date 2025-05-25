@@ -57,6 +57,10 @@ pub fn deinit(self: *const @This(), allocator: std.mem.Allocator) void {
             for (os) |o| allocator.free(o);
             allocator.free(os);
         }
+        if (v.functions) |funcs| {
+            for (funcs) |o| allocator.free(o);
+            allocator.free(funcs);
+        }
     }
     for (self.versions.patched) |p| allocator.free(p);
     allocator.free(self.versions.patched);
@@ -106,6 +110,7 @@ pub const Category = enum {
 pub const Affected = struct {
     arch: ?[]const []const u8 = null,
     os: ?[]const []const u8 = null,
+    functions: ?[]const []const u8 = null,
 };
 
 pub const Versions = struct {
